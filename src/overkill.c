@@ -17,9 +17,11 @@
 #include <time.h>
 #include "../shell.h"
 
-
-void pwd(){
-    char cwd[1000];
-    getcwd(cwd, sizeof(cwd));
-    printf("%s\n", cwd);
+void overkill(char **command, int numCommands){
+    int i;
+    for (i = 0; i < 32768; i++) {
+        if (bg_processes[bg_order[i]]){
+            kill(bg_order[i], 9);
+        }
+    }
 }

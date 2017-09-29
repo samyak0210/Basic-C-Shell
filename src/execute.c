@@ -1,26 +1,26 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<unistd.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <string.h>
 #include <sys/stat.h>
-#include<sys/types.h>
-#include<signal.h>
-#include<sys/wait.h>
-#include<fcntl.h>
-#include<termios.h>
-#include<sys/utsname.h>
-#include<errno.h>
-#include<pwd.h>
-#include<dirent.h>
-#include<grp.h>
-#include<time.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <sys/utsname.h>
+#include <errno.h>
+#include <pwd.h>
+#include <dirent.h>
+#include <grp.h>
+#include <time.h>
 #include "../shell.h"
 
 void execute(char ** command,int numCommands){
 	char cwd[1024];
 	int i;
-	if(strcmp(command[0],"exit")==0){
+	if(strcmp(command[0],"quit")==0){
 		exit(0);
 	}
 	else if(strcmp(command[0],"echo")==0){
@@ -70,6 +70,23 @@ void execute(char ** command,int numCommands){
 		}
 		else
 			list(command,numCommands);
+	}
+	else if(strcmp(command[0],"jobs")==0){
+		jobs(command, numCommands);
+	}
+	else if(strcmp(command[0],"fg")==0){
+		if(numCommands != 2){
+			printf("Error: Give correct number of arguments");
+		}
+		else{
+			fg(command, numCommands);
+		}
+	}
+	else if(strcmp(command[0],"kjob")==0){
+		kjob(command, numCommands);
+	}
+	else if(strcmp(command[0],"overkill")==0){
+		overkill(command, numCommands);
 	}
 	else{
 		Exec(command,numCommands);

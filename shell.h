@@ -9,13 +9,17 @@
 #define e_l printf("\n");
 #define err printf("Error\n");
 #define clrscr() printf("\e[1;1H\e[2J");
+#define min(a,b) (a<b?a:b)
 
 char *command[limit];
 char line[max];
 int last;
 char s[100001];
 char HOME[1024];
-int bgp;
+int bgp, bg_len, fg_id, fg_flag;
+char fg_name[109];
+int bg_order[32768];
+char *bg_processes[32768];
 
 void printPrompt();
 
@@ -32,5 +36,19 @@ void execute(char ** command,int numCommands);
 void pwd();
 
 void echo(char ** command,int numCommands);
+
+void sigint_handler (int sig);
+
+void redirect(char ** command,int numCommands);
+
+int execute_with_pipes (char ** command, int input_pipe,int fl,int l,int r);
+
+void jobs(char ** command,int numCommands);
+
+void fg(char ** command,int numCommands);
+
+void kjob(char ** command,int numCommands);
+
+void overkill(char ** command,int numCommands);
 
 #endif

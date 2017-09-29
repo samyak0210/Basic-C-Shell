@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -17,9 +13,12 @@
 #include <time.h>
 #include "../shell.h"
 
-
-void pwd(){
-    char cwd[1000];
-    getcwd(cwd, sizeof(cwd));
-    printf("%s\n", cwd);
+int get_job_pid (int jobid) {
+    int i, j = 0;
+    for (i = 0; i < 32767 && j != jobid; i++)
+        if (bg_processes[bg_order[i]])
+            j++;
+    if (i == 32767)
+        return -1;
+    return bg_order[i-1];
 }
