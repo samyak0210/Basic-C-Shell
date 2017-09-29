@@ -1,9 +1,5 @@
 # Basic Shell Impementation Using C
 
-## Authors:
-
-	Akshat Maheshwari (20161024)
-	Samyak Jain (20161083)
 
 ## Building and Implementation:
 	First run the command *make* in the project directory.
